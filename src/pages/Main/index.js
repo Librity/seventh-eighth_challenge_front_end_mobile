@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import { formatPricePtBr } from '../../util/format';
+import { formatPricePtBr } from '../../util/format';
 import api from '../../services/api';
 
 import {
-  Global,
   ProductList,
   Product,
   Thumbnail,
@@ -32,7 +31,7 @@ export default class Main extends Component {
 
     const data = response.data.map(product => ({
       ...product,
-      formattedPrice: product.price,
+      formattedPrice: formatPricePtBr(product.price),
     }));
 
     this.setState({ products: data });
@@ -42,33 +41,30 @@ export default class Main extends Component {
     const { products } = this.state;
 
     return (
-      <Global>
-        <ProductList
-          data={products}
-          keyExtractor={product => product.id}
-          renderItem={({ item }) => (
-            <Product key={item.id}>
-              <Thumbnail source={{ uri: item.image }} />
-              <Title>{item.title}</Title>
-              <Price>{item.formattedPrice}</Price>
+      <ProductList
+        horizontal
+        data={products}
+        keyExtractor={product => String(product.id)}
+        renderItem={({ item }) => (
+          <Product key={item.id}>
+            <Thumbnail source={{ uri: item.image }} />
+            <Title>{item.title}</Title>
+            <Price>{item.formattedPrice}</Price>
 
-              <AddToCartButton
-                type="button"
-                onClick={() => this.handleAddProduct(item.id)}
-              >
-                <QuantityInCartIndicator>
-                  <Icon name="add" size={16} color="#fff" />
-                  <QuantityInCart>3</QuantityInCart>
-                </QuantityInCartIndicator>
+            <AddToCartButton
+              type="button"
+              onClick={() => this.handleAddProduct(item.id)}
+            >
+              <QuantityInCartIndicator>
+                <Icon name="add-shopping-cart" size={16} color="#fff" />
+                <QuantityInCart>3</QuantityInCart>
+              </QuantityInCartIndicator>
 
-                <AddToCartButtonLable>
-                  ADICIONAR AO CARRINHO
-                </AddToCartButtonLable>
-              </AddToCartButton>
-            </Product>
-          )}
-        />
-      </Global>
+              <AddToCartButtonLable>ADICIONAR</AddToCartButtonLable>
+            </AddToCartButton>
+          </Product>
+        )}
+      />
     );
   }
 }

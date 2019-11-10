@@ -1,18 +1,19 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const Global = styled.View`
-  background: #17161b;
-`;
-
 export const ProductList = styled.FlatList.attrs({
-  showsVerticalScrollIndicator: false,
+  showsHorizontalScrollIndicator: false,
 })`
-  margin-top: 20px;
+  background: #201d25;
+  flex: 1;
+  flex-direction: row;
+  padding: 30px;
 `;
 
 export const Product = styled.View`
-  display: flex;
+  max-width: 220px;
+  max-height: 350px;
+  margin-right: 20px;
   flex-direction: column;
   background: #fff;
   border-radius: 4px;
@@ -20,15 +21,17 @@ export const Product = styled.View`
 `;
 
 export const Thumbnail = styled.Image`
- width: 64px;
-  height: 64px;
+  width: 180px;
+  height: 180px;
+  align-self: center;
 `;
 
-export const Title = styled.Text`
-  font-size: 16px;
-  line-height: 16px;
+export const Title = styled.Text.attrs({
+  numberOfLines: 2,
+})`
+  font-size: 15px;
+  line-height: 18px;
   color: #333;
-  margin-top: 5px;
 `;
 
 export const Price = styled.Text`
@@ -38,25 +41,34 @@ export const Price = styled.Text`
 `;
 
 export const AddToCartButton = styled(RectButton)`
-  justify-content: center;
-  align-items: center;
-  background: #3f76cf;
+  background: #9159c1;
+  color: #fff;
+  border: 0;
   border-radius: 4px;
-  margin-left: 10px;
-  padding: 0 12px;
+  overflow: hidden;
+  margin-top: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const QuantityInCartIndicator = styled.View`
   display: flex;
+  flex-direction: row;
   align-items: center;
   padding: 12px;
   background: rgba(0, 0, 0, 0.1);
 `;
 
-export const QuantityInCart = styled.Text``;
+export const QuantityInCart = styled.Text`
+  margin-left: 5px;
+  color: #fff;
+`;
 
 export const AddToCartButtonLable = styled.Text`
   flex: 1;
   text-align: center;
   font-weight: bold;
+  color: #fff;
 `;
