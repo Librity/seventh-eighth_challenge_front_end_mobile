@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled.View`
-  background: #201d25;
-`;
-
 export const ProductList = styled.FlatList.attrs({
   showsHorizontalScrollIndicator: false,
 })`
-  background: #fff;
+  background: #201d25;
   flex: 1;
   padding: 30px;
   margin-top: 20px;
@@ -17,6 +13,10 @@ export const ProductList = styled.FlatList.attrs({
 
 export const Product = styled.View`
   flex-direction: column;
+  max-width: 220px;
+  max-height: 350px;
+  background: #fff;
+  padding: 20px;
 `;
 
 export const ProductInfo = styled.View`

@@ -3,7 +3,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formatPricePtBr } from '../../util/format';
 import {
-  Container,
   ProductList,
   Product,
   ProductInfo,
@@ -79,7 +78,7 @@ export default class Cart extends Component {
   render() {
     const { cart } = this.state;
     return (
-      <Container>
+      <>
         <ProductList
           data={cart}
           keyExtractor={product => String(product.id)}
@@ -122,7 +121,7 @@ export default class Cart extends Component {
             <BuyButtonLabel>FINALIZAR PEDIDO</BuyButtonLabel>
           </BuyButton>
         </Footer>
-      </Container>
+      </>
     );
   }
 }
