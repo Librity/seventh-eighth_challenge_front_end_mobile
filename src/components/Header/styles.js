@@ -11,8 +11,8 @@ export const Container = styled.View`
 `;
 
 export const Main = styled(RectButton)`
-  width: 120px;
-  height: 30px;
+  width: 200px;
+  height: 40px;
   border: 0;
   overflow: hidden;
   margin-top: auto;
@@ -22,6 +22,7 @@ export const Main = styled(RectButton)`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Cart = styled(RectButton)`

@@ -23,13 +23,13 @@ export default class Header extends Component {
       <Container>
         <Main onPress={() => this.handleNavigate('Main')}>
           <SvgUri
-            width="180%"
-            height="180%"
+            width="90%"
+            height="90%"
             uri="https://skylab.rocketseat.com.br/api/files/1562597403849.svg"
           />
         </Main>
 
-        <Cart onPress={() => this.handleNavigate('Cart  ')}>
+        <Cart onPress={() => this.handleNavigate('Cart')}>
           <Icon name="shopping-basket" size={30} color="#fff" />
           <ProductCircle>
             <ProductCount>{3}</ProductCount>
