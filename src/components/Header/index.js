@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { SvgUri } from 'react-native-svg';
 
-import { Container, Main, Cart, ProductCircle, ProductCount } from './styles';
+import logo from '../../assets/images/logo.png';
+
+import {
+  Container,
+  Main,
+  Logo,
+  Cart,
+  ProductCircle,
+  ProductCount,
+} from './styles';
 
 export default class Header extends Component {
   static propTypes = {
@@ -22,11 +30,7 @@ export default class Header extends Component {
     return (
       <Container>
         <Main onPress={() => this.handleNavigate('Main')}>
-          <SvgUri
-            width="90%"
-            height="90%"
-            uri="https://skylab.rocketseat.com.br/api/files/1562597403849.svg"
-          />
+          <Logo source={logo} resizeMode="contain" />
         </Main>
 
         <Cart onPress={() => this.handleNavigate('Cart')}>
