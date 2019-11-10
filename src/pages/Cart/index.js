@@ -16,7 +16,7 @@ import {
   ProductQuantityAdjustment,
   ProductIncrease,
   ProductQuantity,
-  ProductDecrese,
+  ProductDecrease,
   SubTotal,
   Footer,
   TotalText,
@@ -101,14 +101,13 @@ export default class Cart extends Component {
                     <Icon name="add-circle-outline" size={16} color="#7159c1" />
                   </ProductIncrease>
                   <ProductQuantity>3</ProductQuantity>
-                  <ProductDecrese>
-                    {' '}
+                  <ProductDecrease>
                     <Icon
                       name="remove-circle-outline"
                       size={16}
                       color="#7159c1"
                     />
-                  </ProductDecrese>
+                  </ProductDecrease>
                 </ProductQuantityAdjustment>
                 <SubTotal>$1234</SubTotal>
               </ProductOrder>
