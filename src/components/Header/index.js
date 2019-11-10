@@ -1,31 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { SvgUri } from 'react-native-svg';
 
-import { MdShoppingBasket } from 'react-icons/md';
+import { Container, Main, Cart, ProductCircle, ProductCount } from './styles';
 
-import { Container, Cart } from './styles';
+export default class Header extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
 
-import logo from '../../assets/images/logo.svg';
+  handleNavigate = page => {
+    const { navigation } = this.props;
 
-function Header({ cartItemsCount }) {
-  return (
-    <Container>
-      <Link to="/">
-        <img src={logo} alt="Rocketshoes" />
-      </Link>
+    navigation.navigate(page);
+  };
 
-      <Cart to="/cart">
-        <div>
-          <strong>Meu carrinho</strong>
-          <span>{cartItemsCount} itens</span>
-        </div>
-        <MdShoppingBasket size={36} color="#FFF" />
-      </Cart>
-    </Container>
-  );
+  render() {
+    return (
+      <Container>
+        <Main onPress={() => this.handleNavigate('Main')}>
+          <SvgUri
+            width="180%"
+            height="180%"
+            uri="https://skylab.rocketseat.com.br/api/files/1562597403849.svg"
+          />
+        </Main>
+
+        <Cart onPress={() => this.handleNavigate('Cart  ')}>
+          <Icon name="shopping-basket" size={30} color="#fff" />
+          <ProductCircle>
+            <ProductCount>{3}</ProductCount>
+          </ProductCircle>
+        </Cart>
+      </Container>
+    );
+  }
 }
-
-export default connect(state => ({
-  cartItemsCount: state.cart.length,
-}))(Header);
