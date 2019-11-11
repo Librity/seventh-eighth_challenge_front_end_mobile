@@ -7,7 +7,7 @@ export const ProductList = styled.FlatList.attrs({
   background: #201d25;
   flex: 1;
   flex-direction: row;
-  padding: 30px;
+  padding: 20px;
 `;
 
 export const Product = styled.View`
