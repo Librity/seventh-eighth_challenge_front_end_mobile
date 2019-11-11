@@ -96,7 +96,7 @@ export default class Cart extends Component {
                   <RemoveProduct>
                     <Icon
                       name="remove-shopping-cart"
-                      size={16}
+                      size={25}
                       color="#7159c1"
                     />
                   </RemoveProduct>
@@ -106,15 +106,15 @@ export default class Cart extends Component {
                     <ProductIncrease>
                       <Icon
                         name="add-circle-outline"
-                        size={16}
+                        size={20}
                         color="#7159c1"
                       />
                     </ProductIncrease>
-                    <ProductQuantity>3</ProductQuantity>
+                    <ProductQuantity editable={false}>3</ProductQuantity>
                     <ProductDecrease>
                       <Icon
                         name="remove-circle-outline"
-                        size={16}
+                        size={20}
                         color="#7159c1"
                       />
                     </ProductDecrease>

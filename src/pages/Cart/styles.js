@@ -64,13 +64,13 @@ export const ProductOrder = styled.View`
 `;
 
 export const ProductQuantityAdjustment = styled.View`
+  padding: 4px;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 `;
 
 export const ProductIncrease = styled(RectButton)`
-  background: none;
   border: 0;
   padding: 6px;
 `;
@@ -78,24 +78,29 @@ export const ProductIncrease = styled(RectButton)`
 export const ProductQuantity = styled.TextInput`
   border: 1px solid #ddd;
   border-radius: 4px;
+  background: #fff;
   color: #666;
-  padding: 6px;
-  width: 10px;
+  font-size: 14px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  width: 40px;
+  height: 30px;
 `;
 
 export const ProductDecrease = styled(RectButton)`
-  background: none;
   border: 0;
   padding: 6px;
 `;
 
 export const SubTotal = styled.Text`
-  color: #333;
+  margin-right: 12px;
 `;
 
 export const Footer = styled.View`
-  margin-top: 30px;
+  margin-top: 15px;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   border-radius: 4px;
 `;
@@ -105,18 +110,23 @@ export const TotalText = styled.Text`
 `;
 
 export const Total = styled.Text`
+  margin-top: 5px;
   font-size: 28px;
 `;
 
 export const BuyButton = styled(RectButton)`
   background: #7159c1;
-  color: #fff;
   border: 0;
   border-radius: 4px;
-  padding: 12px 20px;
+  padding: 12px 90px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
 export const BuyButtonLabel = styled.Text`
   text-transform: uppercase;
   font-weight: bold;
+  color: #fff;
 `;
