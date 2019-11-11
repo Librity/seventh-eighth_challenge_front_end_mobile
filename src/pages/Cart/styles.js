@@ -39,7 +39,11 @@ export const Thumbnail = styled.Image`
   height: 90px;
 `;
 
-export const ProductDetails = styled.View``;
+export const ProductDetails = styled.View`
+  margin-left: 3px;
+  flex-direction: column;
+  flex: 1;
+`;
 
 export const ProductTitle = styled.Text.attrs({
   numberOfLines: 2,
