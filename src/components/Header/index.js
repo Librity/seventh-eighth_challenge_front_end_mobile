@@ -22,13 +22,13 @@ class Header extends Component {
   };
 
   handleNavigate = page => {
-    const { navigation } = this.state;
+    const { navigation } = this.props;
 
     navigation.navigate(page);
   };
 
   render() {
-    const { cartItemsCount } = this.state;
+    const { cartItemsCount } = this.props;
     return (
       <Container>
         <Main onPress={() => this.handleNavigate('Home')}>
@@ -45,6 +45,10 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  cartItemsCount: PropTypes.number.isRequired,
+};
 
 export default connect(state => ({
   cartItemsCount: state.cart.length,

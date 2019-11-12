@@ -59,21 +59,21 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
               </ProductInfo>
               <ProductOrder>
                 <ProductQuantityAdjustment>
-                  <ProductIncrease onClick={() => increment(item)}>
-                    <Icon name="add-circle-outline" size={20} color="#7159c1" />
-                  </ProductIncrease>
-                  <ProductQuantity editable={false}>
-                    {item.amount}
-                  </ProductQuantity>
-                  <ProductDecrease onClick={() => decrement(item)}>
+                  <ProductDecrease onPress={() => decrement(item)}>
                     <Icon
                       name="remove-circle-outline"
                       size={20}
                       color="#7159c1"
                     />
                   </ProductDecrease>
+                  <ProductQuantity editable={false}>
+                    {item.amount}
+                  </ProductQuantity>
+                  <ProductIncrease onPress={() => increment(item)}>
+                    <Icon name="add-circle-outline" size={20} color="#7159c1" />
+                  </ProductIncrease>
                 </ProductQuantityAdjustment>
-                <SubTotal>$1234</SubTotal>
+                <SubTotal>{item.formattedSubtotal}</SubTotal>
               </ProductOrder>
             </Product>
           )}
@@ -92,10 +92,8 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
 }
 
 Cart.propTypes = {
-  cart: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
-  total: PropTypes.string.isRequired,
+  cart: PropTypes.isRequired,
+  total: PropTypes.shape().isRequired,
   removeFromCart: PropTypes.func.isRequired,
   updateAmountRequest: PropTypes.func.isRequired,
 };

@@ -9,8 +9,8 @@ import Cart from './pages/Cart';
 const Routes = createAppContainer(
   createStackNavigator(
     {
-      Cart,
       Home,
+      Cart,
     },
     {
       defaultNavigationOptions: navigation => ({
