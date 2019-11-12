@@ -39,13 +39,12 @@ class Home extends Component {
     this.setState({ products: data });
   }
 
-  handleAddProduct = id => {
-    const { addToCartRequest } = this.props;
-    console.tron.log(addToCartRequest);
+  handleAddProduct = async id => {
+    const { addToCartRequest, navigation } = this.props;
 
-    console.tron.log('hello!');
+    await addToCartRequest(id);
 
-    addToCartRequest(id);
+    navigation.navigate('Cart');
   };
 
   render() {
@@ -81,6 +80,9 @@ class Home extends Component {
 Home.propTypes = {
   addToCartRequest: PropTypes.func.isRequired,
   amount: PropTypes.shape().isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
