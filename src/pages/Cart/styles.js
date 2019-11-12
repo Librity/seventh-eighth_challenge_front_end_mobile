@@ -134,3 +134,18 @@ export const BuyButtonLabel = styled.Text`
   font-weight: bold;
   color: #fff;
 `;
+
+export const EmptyCart = styled.View`
+  max-height: 150px;
+  flex: 1;
+  background: #fff;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const EmptyCartText = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: #030204;
+`;
