@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import logo from '../../assets/images/logo.png';
 
 import {
@@ -13,7 +14,7 @@ import {
   ProductCount,
 } from './styles';
 
-export default class Header extends Component {
+class Header extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -21,25 +22,30 @@ export default class Header extends Component {
   };
 
   handleNavigate = page => {
-    const { navigation } = this.props;
+    const { navigation } = this.state;
 
     navigation.navigate(page);
   };
 
   render() {
+    const { cartItemsCount } = this.state;
     return (
       <Container>
-        <Main onPress={() => this.handleNavigate('Main')}>
+        <Main onPress={() => this.handleNavigate('Home')}>
           <Logo source={logo} resizeMode="contain" />
         </Main>
 
         <Cart onPress={() => this.handleNavigate('Cart')}>
           <Icon name="shopping-basket" size={30} color="#fff" />
           <ProductCircle>
-            <ProductCount>{3}</ProductCount>
+            <ProductCount>{cartItemsCount}</ProductCount>
           </ProductCircle>
         </Cart>
       </Container>
     );
   }
 }
+
+export default connect(state => ({
+  cartItemsCount: state.cart.length,
+}))(Header);

@@ -16,8 +16,8 @@ const sagaMiddleware = createSagaMiddleware({
 const enhancer =
   process.env.NODE_ENV === 'development'
     ? compose(
-        console.tron.createEnhancer(),
-        applyMiddleware(sagaMiddleware)
+        console.tron.createEnhancer()
+        // applyMiddleware(sagaMiddleware)
       )
     : applyMiddleware(sagaMiddleware);
 

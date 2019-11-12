@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formatPricePtBr } from '../../util/format';
+import * as CartActions from '../../store/modules/cart/actions';
 import {
   Container1,
   Container2,
@@ -26,114 +30,89 @@ import {
   BuyButtonLabel,
 } from './styles';
 
-export default class Cart extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cart: [
-        {
-          id: 1,
-          title: 'Tênis de Caminhada Leve Confortável',
-          price: 179.9,
-          image:
-            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-        },
-        {
-          id: 2,
-          title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-          price: 139.9,
-          image:
-            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-        },
-        {
-          id: 3,
-          title: 'Tênis Adidas Duramo Lite 2.0',
-          price: 219.9,
-          image:
-            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-        },
-        {
-          id: 5,
-          title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-          price: 139.9,
-          image:
-            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-        },
-        {
-          id: 6,
-          title: 'Tênis Adidas Duramo Lite 2.0',
-          price: 219.9,
-          image:
-            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-        },
-        {
-          id: 4,
-          title: 'Tênis de Caminhada Leve Confortável',
-          price: 179.9,
-          image:
-            'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-        },
-      ],
-    };
-  }
+function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
+  const decrement = product => {
+    updateAmountRequest(product.id, product.amount - 1);
+  };
 
-  render() {
-    const { cart } = this.state;
-    return (
-      <Container1>
-        <Container2>
-          <ProductList
-            data={cart}
-            keyExtractor={product => String(product.id)}
-            renderItem={({ item }) => (
-              <Product>
-                <ProductInfo>
-                  <Thumbnail source={{ uri: item.image }} />
-                  <ProductDetails>
-                    <ProductTitle>{item.title}</ProductTitle>
-                    <ProductPrice>{item.price}</ProductPrice>
-                  </ProductDetails>
-                  <RemoveProduct>
+  const increment = product => {
+    updateAmountRequest(product.id, product.amount + 1);
+  };
+
+  return (
+    <Container1>
+      <Container2>
+        <ProductList
+          data={cart}
+          keyExtractor={product => String(product.id)}
+          renderItem={({ item }) => (
+            <Product>
+              <ProductInfo>
+                <Thumbnail source={{ uri: item.image }} />
+                <ProductDetails>
+                  <ProductTitle>{item.title}</ProductTitle>
+                  <ProductPrice>{item.price}</ProductPrice>
+                </ProductDetails>
+                <RemoveProduct onPress={() => removeFromCart(item.id)}>
+                  <Icon name="remove-shopping-cart" size={25} color="#7159c1" />
+                </RemoveProduct>
+              </ProductInfo>
+              <ProductOrder>
+                <ProductQuantityAdjustment>
+                  <ProductIncrease onClick={() => increment(item)}>
+                    <Icon name="add-circle-outline" size={20} color="#7159c1" />
+                  </ProductIncrease>
+                  <ProductQuantity editable={false}>
+                    {item.amount}
+                  </ProductQuantity>
+                  <ProductDecrease onClick={() => decrement(item)}>
                     <Icon
-                      name="remove-shopping-cart"
-                      size={25}
+                      name="remove-circle-outline"
+                      size={20}
                       color="#7159c1"
                     />
-                  </RemoveProduct>
-                </ProductInfo>
-                <ProductOrder>
-                  <ProductQuantityAdjustment>
-                    <ProductIncrease>
-                      <Icon
-                        name="add-circle-outline"
-                        size={20}
-                        color="#7159c1"
-                      />
-                    </ProductIncrease>
-                    <ProductQuantity editable={false}>3</ProductQuantity>
-                    <ProductDecrease>
-                      <Icon
-                        name="remove-circle-outline"
-                        size={20}
-                        color="#7159c1"
-                      />
-                    </ProductDecrease>
-                  </ProductQuantityAdjustment>
-                  <SubTotal>$1234</SubTotal>
-                </ProductOrder>
-              </Product>
-            )}
-          />
+                  </ProductDecrease>
+                </ProductQuantityAdjustment>
+                <SubTotal>$1234</SubTotal>
+              </ProductOrder>
+            </Product>
+          )}
+        />
 
-          <Footer>
-            <TotalText>TOTAL</TotalText>
-            <Total>$1234</Total>
-            <BuyButton>
-              <BuyButtonLabel>FINALIZAR PEDIDO</BuyButtonLabel>
-            </BuyButton>
-          </Footer>
-        </Container2>
-      </Container1>
-    );
-  }
+        <Footer>
+          <TotalText>TOTAL</TotalText>
+          <Total>{total}</Total>
+          <BuyButton>
+            <BuyButtonLabel>FINALIZAR PEDIDO</BuyButtonLabel>
+          </BuyButton>
+        </Footer>
+      </Container2>
+    </Container1>
+  );
 }
+
+Cart.propTypes = {
+  cart: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
+  total: PropTypes.string.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  cart: state.cart.map(product => ({
+    ...product,
+    formattedSubtotal: formatPricePtBr(product.price * product.amount),
+  })),
+  total: formatPricePtBr(
+    state.cart.reduce((total, product) => {
+      return total + product.price * product.amount;
+    }, 0)
+  ),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

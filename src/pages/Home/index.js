@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import * as CartActions from '../../store/modules/cart/actions';
 import { formatPricePtBr } from '../../util/format';
 import api from '../../services/api';
 
@@ -16,7 +20,7 @@ import {
   AddToCartButtonLable,
 } from './styles';
 
-export default class Main extends Component {
+class Home extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,9 +29,7 @@ export default class Main extends Component {
   }
 
   async componentDidMount() {
-    const response = await api.get('/products');
-
-    console.tron.log(response.data);
+    const response = await api.get('products');
 
     const data = response.data.map(product => ({
       ...product,
@@ -37,8 +39,15 @@ export default class Main extends Component {
     this.setState({ products: data });
   }
 
+  handleAddProduct = id => {
+    const { addToCartRequest } = this.props;
+
+    addToCartRequest(id);
+  };
+
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
 
     return (
       <ProductList
@@ -57,7 +66,7 @@ export default class Main extends Component {
             >
               <QuantityInCartIndicator>
                 <Icon name="add-shopping-cart" size={16} color="#fff" />
-                <QuantityInCart>3</QuantityInCart>
+                <QuantityInCart>{amount[item.id] || 0}</QuantityInCart>
               </QuantityInCartIndicator>
 
               <AddToCartButtonLable>ADICIONAR</AddToCartButtonLable>
@@ -68,3 +77,20 @@ export default class Main extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  addToCartRequest: PropTypes.func.isRequired,
+  amount: PropTypes.shape().isRequired,
+};
+
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {}),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
