@@ -92,7 +92,7 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
 }
 
 Cart.propTypes = {
-  cart: PropTypes.isRequired,
+  cart: PropTypes.array.isRequired,
   total: PropTypes.shape().isRequired,
   removeFromCart: PropTypes.func.isRequired,
   updateAmountRequest: PropTypes.func.isRequired,

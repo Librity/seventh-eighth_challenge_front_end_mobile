@@ -12,7 +12,7 @@ export const Container = styled.View`
 
 export const Main = styled(RectButton)`
   width: 220px;
-  height: 40px;
+  height: 50px;
   border: 0;
   overflow: hidden;
   margin-top: auto;
@@ -32,15 +32,12 @@ export const Logo = styled.Image`
 `;
 
 export const Cart = styled(RectButton)`
-  display: flex;
-  align-items: center;
+  flex: 1;
+  align-items: flex-end;
   margin-right: 20px;
 `;
 
 export const ProductCircle = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: absolute;
   top: -3px;
   right: -3px;
@@ -49,6 +46,8 @@ export const ProductCircle = styled.View`
   width: 16;
   height: 16;
   border-radius: 8px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ProductCount = styled.Text`
