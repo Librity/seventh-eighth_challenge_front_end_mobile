@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RectButton } from 'react-native-gesture-handler';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   height: 60px;
@@ -10,7 +10,9 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const Main = styled(RectButton)`
+export const Main = styled(BorderlessButton).attrs({
+  borderless: true,
+})`
   width: 220px;
   height: 50px;
   border: 0;
@@ -31,7 +33,9 @@ export const Logo = styled.Image`
   align-self: center;
 `;
 
-export const Cart = styled(RectButton)`
+export const Cart = styled(BorderlessButton).attrs({
+  borderless: true,
+})`
   flex: 1;
   align-items: flex-end;
   margin-right: 20px;

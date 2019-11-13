@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import api from '../../../services/api';
 import { formatPricePtBr } from '../../../util/format';
 
+import { navigate } from '../../../services/navigation';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 
 function* addToCart({ id }) {
@@ -35,7 +36,7 @@ function* addToCart({ id }) {
 
     yield put(addToCartSuccess(data));
 
-    // history.push('/cart');
+    navigate('Cart');
   }
 }
 

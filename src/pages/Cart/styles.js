@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton, BorderlessButton } from 'react-native-gesture-handler';
 
 export const Container1 = styled.View`
   flex: 1;
@@ -57,7 +57,12 @@ export const ProductPrice = styled.Text`
   font-weight: bold;
 `;
 
-export const RemoveProduct = styled(RectButton)``;
+export const RemoveProduct = styled(BorderlessButton).attrs({
+  borderless: true,
+})`
+  border: 0;
+  padding: 6px;
+`;
 
 export const ProductOrder = styled.View`
   flex-direction: row;
@@ -74,7 +79,9 @@ export const ProductQuantityAdjustment = styled.View`
   align-items: center;
 `;
 
-export const ProductIncrease = styled(RectButton)`
+export const ProductIncrease = styled(BorderlessButton).attrs({
+  borderless: true,
+})`
   border: 0;
   padding: 6px;
 `;
@@ -92,7 +99,9 @@ export const ProductQuantity = styled.TextInput`
   height: 30px;
 `;
 
-export const ProductDecrease = styled(RectButton)`
+export const ProductDecrease = styled(BorderlessButton).attrs({
+  borderless: true,
+})`
   border: 0;
   padding: 6px;
 `;
