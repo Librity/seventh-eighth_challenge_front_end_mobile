@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -33,13 +31,30 @@ import {
   EmptyCartText,
 } from './styles';
 
-function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
+export default function Cart() {
+  const dispatch = useDispatch();
+
+  const cart = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+      formattedSubtotal: formatPricePtBr(product.price * product.amount),
+    }))
+  );
+
+  const totalCost = useSelector(state =>
+    formatPricePtBr(
+      state.cart.reduce((total, product) => {
+        return total + product.price * product.amount;
+      }, 0)
+    )
+  );
+
   const decrement = product => {
-    updateAmountRequest(product.id, product.amount - 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
   };
 
   const increment = product => {
-    updateAmountRequest(product.id, product.amount + 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
   };
 
   return (
@@ -57,7 +72,11 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
                     <ProductTitle>{item.title}</ProductTitle>
                     <ProductPrice>{item.price}</ProductPrice>
                   </ProductDetails>
-                  <RemoveProduct onPress={() => removeFromCart(item.id)}>
+                  <RemoveProduct
+                    onPress={() =>
+                      dispatch(CartActions.removeFromCart(item.id))
+                    }
+                  >
                     <IconCommunity name="trash-can" size={25} color="#7159c1" />
                   </RemoveProduct>
                 </ProductInfo>
@@ -89,7 +108,7 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
 
           <Footer>
             <TotalText>TOTAL</TotalText>
-            <Total>{total}</Total>
+            <Total>{totalCost}</Total>
             <BuyButton>
               <BuyButtonLabel>FINALIZAR PEDIDO</BuyButtonLabel>
             </BuyButton>
@@ -104,27 +123,3 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
     </Container1>
   );
 }
-
-Cart.propTypes = {
-  cart: PropTypes.array.isRequired,
-  total: PropTypes.shape().isRequired,
-  removeFromCart: PropTypes.func.isRequired,
-  updateAmountRequest: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  cart: state.cart.map(product => ({
-    ...product,
-    formattedSubtotal: formatPricePtBr(product.price * product.amount),
-  })),
-  total: formatPricePtBr(
-    state.cart.reduce((total, product) => {
-      return total + product.price * product.amount;
-    }, 0)
-  ),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
