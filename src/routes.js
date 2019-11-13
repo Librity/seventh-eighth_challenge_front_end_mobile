@@ -13,12 +13,14 @@ const Routes = createAppContainer(
       Cart,
     },
     {
-      defaultNavigationOptions: navigation => ({
-        header: <Header {...navigation} />,
+      defaultNavigationOptions: () => ({
+        header: <Header />,
       }),
       cardStyle: {
         backgroundColor: '#191920',
       },
+      headerMode: 'float',
+      headerTransitionPreset: 'uikit',
     }
   )
 );

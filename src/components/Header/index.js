@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { navigate } from '../../services/navigation';
 import logo from '../../assets/images/logo.png';
 
 import {
@@ -14,42 +14,25 @@ import {
   ProductCount,
 } from './styles';
 
-class Header extends Component {
-  static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
+export default function Header() {
+  const cartItemsCount = useSelector(state => state.cart.length);
+
+  const handleNavigate = page => {
+    navigate(page);
   };
 
-  handleNavigate = page => {
-    const { navigation } = this.props;
+  return (
+    <Container>
+      <Main onPress={() => handleNavigate('Home')}>
+        <Logo source={logo} resizeMode="contain" />
+      </Main>
 
-    navigation.navigate(page);
-  };
-
-  render() {
-    const { cartItemsCount } = this.props;
-    return (
-      <Container>
-        <Main onPress={() => this.handleNavigate('Home')}>
-          <Logo source={logo} resizeMode="contain" />
-        </Main>
-
-        <Cart onPress={() => this.handleNavigate('Cart')}>
-          <Icon name="shopping-basket" size={30} color="#fff" />
-          <ProductCircle>
-            <ProductCount>{cartItemsCount}</ProductCount>
-          </ProductCircle>
-        </Cart>
-      </Container>
-    );
-  }
+      <Cart onPress={() => handleNavigate('Cart')}>
+        <Icon name="shopping-basket" size={30} color="#fff" />
+        <ProductCircle>
+          <ProductCount>{cartItemsCount}</ProductCount>
+        </ProductCircle>
+      </Cart>
+    </Container>
+  );
 }
-
-Header.propTypes = {
-  cartItemsCount: PropTypes.number.isRequired,
-};
-
-export default connect(state => ({
-  cartItemsCount: state.cart.length,
-}))(Header);

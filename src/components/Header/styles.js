@@ -19,7 +19,8 @@ export const Main = styled(BorderlessButton).attrs({
   overflow: hidden;
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 20px;
+  padding-left: 20px;
+  border-radius: 110px;
 
   display: flex;
   flex-direction: row;
